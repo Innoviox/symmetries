@@ -96,8 +96,10 @@ for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
 }
 
+let diagonal_colors = [0xff0000, 0x00ff00, 0x0000ff, 0x8b32a8];
+
 for (let i = 0; i < goal_positions.length; i++) {
-    diagonals.push(line(goal_positions[i][0], goal_positions[i][1], 0x040404 * i)); // todo color
+    diagonals.push(line(goal_positions[i][0], goal_positions[i][1], diagonal_colors[i])); // todo color
     scene.add(diagonals[i]);
 }
 
