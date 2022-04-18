@@ -1,5 +1,17 @@
 {
   "dependencies": {
-    "three.js": "^0.77.0"
+    "three": "^0.139.2"
+  },
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "watch": "webpack --watch --config webpack.config.js"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.2"
   }
 }
