@@ -84,27 +84,29 @@ spheres[7].position.set(cubeMesh.position.x - 5, cubeMesh.position.y - 5, cubeMe
 
 let diagonals = [];
 
-let goal_positions = [];
+var goal_positions = [];
 goal_positions.push([spheres[7].position, spheres[0].position]);
 goal_positions.push([spheres[5].position, spheres[2].position]);
 goal_positions.push([spheres[4].position, spheres[3].position]);
 goal_positions.push([spheres[1].position, spheres[6].position]);
+
+console.log(goal_positions);
 
 for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
 }
 
 for (let i = 0; i < goal_positions.length; i++) {
-    diagonals.push(line(goal_positions[i][0], goal_positions[i][1], 0x000000)); // todo color
+    diagonals.push(line(goal_positions[i][0], goal_positions[i][1], 0x040404 * i)); // todo color
     scene.add(diagonals[i]);
 }
 
-let time = 0;
+let time = 2001;
 let anim_length = 2000;
 
 function get_points(line) {
     let points = line.geometry.attributes.position.array;
-    return chunk(points, 3);
+    return chunk(points, 3).map(i => new THREE.Vector3(...i));
 }
 
 function animateSigma(b) {
@@ -116,13 +118,12 @@ function animateSigma(b) {
     }
 
     time = 0;
-    console.log(goal_positions, goal_positions[0]);
-    console.log(get_points(diagonals[0]));
-    // for (let i = 0; i < cycles.length; i++) {
-    //     goal_positions[cycles[i][0]] = diagonals[cycles[i][1]].geometry.vertices;
-    //     goal_positions[cycles[i][1]] = diagonals[cycles[i][2]].geometry.vertices;
-    // }
-    // console.log(goal_positions);
+
+    for (let i = 0; i < cycles.length; i++) {
+        goal_positions[cycles[i][0]] = get_points(diagonals[cycles[i][1]]);
+        goal_positions[cycles[i][1]] = get_points(diagonals[cycles[i][0]]);
+    }
+    console.log(goal_positions);
 }
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
@@ -135,6 +136,23 @@ function animate() {
 
     // required if controls.enableDamping or controls.autoRotate are set to true
     controls.update();
+
+    if (time < anim_length) {
+        time += 1
+        for (let i = 0; i < goal_positions.length; i++) {
+            let goal = goal_positions[i];
+            let current = get_points(diagonals[i]);
+
+            let new_points = []
+            for (let j = 0; j < current.length; j++) {
+                new_points.push(new THREE.Vector3(current[j].x + (goal[j].x - current[j].x) * time / (anim_length),
+                    current[j].y + (goal[j].y - current[j].y) * time / (anim_length),
+                    current[j].z + (goal[j].z - current[j].z) * time / (anim_length)));
+            }
+
+            diagonals[i].geometry.setFromPoints(new_points);
+        }
+    }
 
     renderer.render(scene, camera);
 
