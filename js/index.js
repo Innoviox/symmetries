@@ -46,8 +46,8 @@ function line(from, to, color) {
     const material = new THREE.LineBasicMaterial({ color: color });
 
     const points = [];
-    points.push(new THREE.Vector3(...from));
-    points.push(new THREE.Vector3(...to));
+    points.push(from);
+    points.push(to);
 
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
@@ -81,10 +81,10 @@ spheres[5].position.set(cubeMesh.position.x - 5, cubeMesh.position.y + 5, cubeMe
 spheres[6].position.set(cubeMesh.position.x + 5, cubeMesh.position.y - 5, cubeMesh.position.z - 5);
 spheres[7].position.set(cubeMesh.position.x - 5, cubeMesh.position.y - 5, cubeMesh.position.z - 5);
 
-scene.add(line([-5, -5, -5], [5, 5, 5], 0xff0000));
-scene.add(line([-5, 5, -5], [5, -5, 5], 0x00ff00));
-scene.add(line([-5, -5, 5], [5, 5, -5], 0x0000ff));
-scene.add(line([5, -5, -5], [-5, 5, 5], 0x87cefa));
+scene.add(line(spheres[7].position, spheres[0].position, 0xff0000));
+scene.add(line(spheres[5].position, spheres[2].position, 0x00ff00));
+scene.add(line(spheres[4].position, spheres[3].position, 0x0000ff));
+scene.add(line(spheres[1].position, spheres[6].position, 0x87cefa));
 
 
 for (let i = 0; i < spheres.length; i++) {
