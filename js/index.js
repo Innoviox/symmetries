@@ -34,7 +34,7 @@ function make_sided_material(piece) {
         colors.push(color.r, color.g, color.b);
         colors.push(color.r, color.g, color.b);
         colors.push(color.r, color.g, color.b);
-    } // for
+    }
 
     // define the new attribute
     piece.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
@@ -86,13 +86,17 @@ scene.add(line(spheres[5].position, spheres[2].position, 0x00ff00));
 scene.add(line(spheres[4].position, spheres[3].position, 0x0000ff));
 scene.add(line(spheres[1].position, spheres[6].position, 0x87cefa));
 
-
 for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
 }
 
 function animateSigma(b) {
-    console.log(b.target.id);
+    let cycles = [];
+    for (let i of b.target.id.substring(1).split("-")) {
+        for (let j = 0; j < i.length; j++) {
+            cycles.push([parseInt(i[j]), parseInt(i[(j + 1) % i.length])]);
+        }
+    }
 }
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
