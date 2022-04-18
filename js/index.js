@@ -42,22 +42,35 @@ function make_sided_material(piece) {
     return material;
 }
 
+function line(from, to, color) {
+    const material = new THREE.LineBasicMaterial({ color: color });
+
+    const points = [];
+    points.push(new THREE.Vector3(...from));
+    points.push(new THREE.Vector3(...to));
+
+    const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+    return new THREE.Line(geometry, material);
+}
+
 const cube = new THREE.BoxGeometry(10, 10, 10);
 const cubeMesh = new THREE.Mesh(cube, make_sided_material(cube));
 cubeMesh.position.set(0, 0, 0);
 const edges = new THREE.EdgesGeometry(cube);
-const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
-scene.add(line);
+const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
+scene.add(lines);
 
+// palette from https://mokole.com/palette.html
 let spheres = [];
-spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xffffff })));
-spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xffff00 })));
-spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xff00ff })));
-spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x00ffff })));
+spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x191970 })));
+spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x006400 })));
 spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xff0000 })));
-spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x0000ff })));
+spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xffd700 })));
 spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x00ff00 })));
-spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xff0000 })));
+spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0x00ffff })));
+spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xff00ff })));
+spheres.push(new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: 0xffb6c1 })));
 
 spheres[0].position.set(cubeMesh.position.x + 5, cubeMesh.position.y + 5, cubeMesh.position.z + 5);
 spheres[1].position.set(cubeMesh.position.x - 5, cubeMesh.position.y + 5, cubeMesh.position.z + 5);
@@ -67,6 +80,11 @@ spheres[4].position.set(cubeMesh.position.x + 5, cubeMesh.position.y + 5, cubeMe
 spheres[5].position.set(cubeMesh.position.x - 5, cubeMesh.position.y + 5, cubeMesh.position.z - 5);
 spheres[6].position.set(cubeMesh.position.x + 5, cubeMesh.position.y - 5, cubeMesh.position.z - 5);
 spheres[7].position.set(cubeMesh.position.x - 5, cubeMesh.position.y - 5, cubeMesh.position.z - 5);
+
+scene.add(line([-5, -5, -5], [5, 5, 5], 0xff0000));
+scene.add(line([-5, 5, -5], [5, -5, 5], 0x00ff00));
+scene.add(line([-5, -5, 5], [5, 5, -5], 0x0000ff));
+scene.add(line([5, -5, -5], [-5, 5, 5], 0x87cefa));
 
 
 for (let i = 0; i < spheres.length; i++) {
