@@ -91,6 +91,14 @@ for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
 }
 
+function animateSigma(b) {
+    console.log(b.target.id);
+}
+
+Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
+    element.addEventListener('click', animateSigma);
+});
+
 function animate() {
 
     requestAnimationFrame(animate);
