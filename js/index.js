@@ -84,13 +84,16 @@ spheres[7].position.set(cubeMesh.position.x - 5, cubeMesh.position.y - 5, cubeMe
 
 let diagonals = [];
 
-var goal_positions = [];
-goal_positions.push([spheres[7].position, spheres[0].position]);
-goal_positions.push([spheres[5].position, spheres[2].position]);
-goal_positions.push([spheres[4].position, spheres[3].position]);
-goal_positions.push([spheres[1].position, spheres[6].position]);
+var goal_diagonals = [];
+goal_diagonals.push([spheres[7].position, spheres[0].position]);
+goal_diagonals.push([spheres[5].position, spheres[2].position]);
+goal_diagonals.push([spheres[4].position, spheres[3].position]);
+goal_diagonals.push([spheres[1].position, spheres[6].position]);
 
-console.log(goal_positions);
+var goal_spheres = spheres.map(i => i.position);
+var diagonals_to_spheres = { 1: [0, 7], 2: [2, 5], 3: [3, 4], 4: [6, 1] };
+
+console.log(goal_diagonals);
 
 for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
@@ -98,8 +101,8 @@ for (let i = 0; i < spheres.length; i++) {
 
 let diagonal_colors = [0xff0000, 0x00ff00, 0x0000ff, 0x8b32a8];
 
-for (let i = 0; i < goal_positions.length; i++) {
-    diagonals.push(line(goal_positions[i][0], goal_positions[i][1], diagonal_colors[i])); // todo color
+for (let i = 0; i < goal_diagonals.length; i++) {
+    diagonals.push(line(goal_diagonals[i][0], goal_diagonals[i][1], diagonal_colors[i])); // todo color
     scene.add(diagonals[i]);
 }
 
@@ -122,10 +125,10 @@ function animateSigma(b) {
     time = 0;
 
     for (let i = 0; i < cycles.length; i++) {
-        goal_positions[cycles[i][0]] = get_points(diagonals[cycles[i][1]]);
-        goal_positions[cycles[i][1]] = get_points(diagonals[cycles[i][0]]);
+        goal_diagonals[cycles[i][0]] = get_points(diagonals[cycles[i][1]]);
+        goal_diagonals[cycles[i][1]] = get_points(diagonals[cycles[i][0]]);
     }
-    console.log(goal_positions);
+    console.log(goal_diagonals);
 }
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
@@ -141,8 +144,8 @@ function animate() {
 
     if (time < anim_length) {
         time += 1
-        for (let i = 0; i < goal_positions.length; i++) {
-            let goal = goal_positions[i];
+        for (let i = 0; i < goal_diagonals.length; i++) {
+            let goal = goal_diagonals[i];
             let current = get_points(diagonals[i]);
 
             let new_points = []
