@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { chunk } from 'lodash';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -99,6 +100,12 @@ for (let i = 0; i < goal_positions.length; i++) {
 }
 
 let time = 0;
+let anim_length = 2000;
+
+function get_points(line) {
+    let points = line.geometry.attributes.position.array;
+    return chunk(points, 3);
+}
 
 function animateSigma(b) {
     let cycles = [];
@@ -109,12 +116,13 @@ function animateSigma(b) {
     }
 
     time = 0;
-    console.log(goal_positions);
-    for (let i = 0; i < cycles.length; i++) {
-        goal_positions[cycles[i][0]] = diagonals[cycles[i][1]].geometry.vertices;
-        goal_positions[cycles[i][1]] = diagonals[cycles[i][2]].geometry.vertices;
-    }
-    console.log(goal_positions);
+    console.log(goal_positions, goal_positions[0]);
+    console.log(get_points(diagonals[0]));
+    // for (let i = 0; i < cycles.length; i++) {
+    //     goal_positions[cycles[i][0]] = diagonals[cycles[i][1]].geometry.vertices;
+    //     goal_positions[cycles[i][1]] = diagonals[cycles[i][2]].geometry.vertices;
+    // }
+    // console.log(goal_positions);
 }
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
