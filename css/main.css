@@ -1,7 +1,17 @@
 #container {
     width: 80%;
-    height: 80%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    left: 0%;
+}
+
+#sigmas {
+    width: 20%;
+    height: 100%;
     overflow: auto;
+    left: 80%;
+    position: absolute;
 }
 
 body {
