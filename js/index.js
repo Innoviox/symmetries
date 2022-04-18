@@ -81,22 +81,40 @@ spheres[5].position.set(cubeMesh.position.x - 5, cubeMesh.position.y + 5, cubeMe
 spheres[6].position.set(cubeMesh.position.x + 5, cubeMesh.position.y - 5, cubeMesh.position.z - 5);
 spheres[7].position.set(cubeMesh.position.x - 5, cubeMesh.position.y - 5, cubeMesh.position.z - 5);
 
-scene.add(line(spheres[7].position, spheres[0].position, 0xff0000));
-scene.add(line(spheres[5].position, spheres[2].position, 0x00ff00));
-scene.add(line(spheres[4].position, spheres[3].position, 0x0000ff));
-scene.add(line(spheres[1].position, spheres[6].position, 0x87cefa));
+let diagonals = [];
+
+let goal_positions = [];
+goal_positions.push([spheres[7].position, spheres[0].position]);
+goal_positions.push([spheres[5].position, spheres[2].position]);
+goal_positions.push([spheres[4].position, spheres[3].position]);
+goal_positions.push([spheres[1].position, spheres[6].position]);
 
 for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
 }
 
+for (let i = 0; i < goal_positions.length; i++) {
+    diagonals.push(line(goal_positions[i][0], goal_positions[i][1], 0x000000)); // todo color
+    scene.add(diagonals[i]);
+}
+
+let time = 0;
+
 function animateSigma(b) {
     let cycles = [];
     for (let i of b.target.id.substring(1).split("-")) {
         for (let j = 0; j < i.length; j++) {
-            cycles.push([parseInt(i[j]), parseInt(i[(j + 1) % i.length])]);
+            cycles.push([parseInt(i[j]) - 1, parseInt(i[(j + 1) % i.length]) - 1]);
         }
     }
+
+    time = 0;
+    console.log(goal_positions);
+    for (let i = 0; i < cycles.length; i++) {
+        goal_positions[cycles[i][0]] = diagonals[cycles[i][1]].geometry.vertices;
+        goal_positions[cycles[i][1]] = diagonals[cycles[i][2]].geometry.vertices;
+    }
+    console.log(goal_positions);
 }
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
