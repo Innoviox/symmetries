@@ -150,6 +150,8 @@ function animateSigma(b) {
     time = 0; // start animation
 }
 
+document.getElementById("sigmatable");
+
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
     element.addEventListener('click', animateSigma);
 });
