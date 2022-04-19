@@ -10,6 +10,7 @@ TODO
 - make faces better
 - make spheres so that they follow the faces (tie the positions to the positions of the cube aces)
 - move faces
+- rotate edges?
 - disable buttons while animation is happening
 - make faces transparent while things move
 - make more shapes

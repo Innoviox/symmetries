@@ -141,15 +141,23 @@ function animateSigma(b) {
 
         goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
         goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
+
+        if (from === 0) {
+            /* 4 => -1, 2 => -2, 3 => 1 */
+            let k = to === 3 ? -1 : to === 1 ? -2 : to === 2 ? 1 : 0;
+            console.log(from, to, k);
+            console.log(cycles);
+            goal_rotate.y += k * half;
+        }
     }
 
-    switch (b.target.id) {
-        case "#1-2-3-4": goal_rotate = new THREE.Vector3(0, 0, 0); break;
-        case "#1423": goal_rotate.y -= half; break;
-        case "#12-34": goal_rotate.y -= 2 * half; break;
-        case "#1324": goal_rotate.y += half; break;
-        default: break;
-    }
+    // switch (b.target.id) {
+    //     case "#1-2-3-4": goal_rotate = new THREE.Vector3(0, 0, 0); break;
+    //     case "#1423": goal_rotate.y -= half; break;
+    //     case "#12-34": goal_rotate.y -= 2 * half; break;
+    //     case "#1324": goal_rotate.y += half; break;
+    //     default: break;
+    // }
 
     time = 0; // start animation
 }
