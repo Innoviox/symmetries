@@ -16,6 +16,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 camera.position.set(0, 20, 100);
 controls.update();
 
+// let faces = { '0145': 0xff0000, '2367': 0x00ff00, '            '
+
 function make_sided_material(piece) {
     const material = new THREE.MeshBasicMaterial({
         vertexColors: true
@@ -61,6 +63,7 @@ cubeMesh.position.set(0, 0, 0);
 const edges = new THREE.EdgesGeometry(cube);
 const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
 scene.add(lines);
+scene.add(cubeMesh);
 
 // palette from https://mokole.com/palette.html
 let spheres = [];
@@ -123,15 +126,23 @@ function animateSigma(b) {
     }
 
     for (let i = 0; i < cycles.length; i++) {
-        // todo clean
-        goal_diagonals[cycles[i][0]].copy(spheres[diagonals_to_spheres[cycles[i][1]][0]].position);
-        goal_diagonals[cycles[i][1]].copy(spheres[diagonals_to_spheres[cycles[i][1]][1]].position);
+        let from = cycles[i][0];
+        let to = cycles[i][1];
 
-        goal_spheres[diagonals_to_spheres[cycles[i][0]][0]].copy(spheres[diagonals_to_spheres[cycles[i][1]][0]].position);
-        goal_spheres[diagonals_to_spheres[cycles[i][0]][1]].copy(spheres[diagonals_to_spheres[cycles[i][1]][1]].position);
+        let from_spheres = diagonals_to_spheres[from];
+        let to_spheres = diagonals_to_spheres[to];
+
+        goal_diagonals[from] = [spheres[to_spheres[0]].position.clone(), spheres[to_spheres[1]].position.clone()];
+
+        goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
+        goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
     }
 
     time = 0; // start animation
+}
+
+function calculate_faces() {
+
 }
 
 document.getElementById("sigmatable");
@@ -170,6 +181,8 @@ function animate() {
             spheres[i].position.y = spheres[i].position.y + (goal_spheres[i].y - spheres[i].position.y) * time / (anim_length);
             spheres[i].position.z = spheres[i].position.z + (goal_spheres[i].z - spheres[i].position.z) * time / (anim_length);
         }
+    } else if (time == anim_length) {
+        console.log(calculate_faces());
     }
 
     renderer.render(scene, camera);

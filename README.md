@@ -11,3 +11,13 @@ TODO
 - add explanation
 - add explanation of sigmas
 - make it look better
+- animation speed slider
+- multiple ways to display sigmas
+
+# syms
+
+- (1)(2)(3)(4): nothing
+- (1423): one rotate
+- (12)(34): two rotates
+- (1324): three rotates
+- 
