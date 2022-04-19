@@ -86,12 +86,12 @@ let diagonals = [];
 
 var goal_diagonals = [];
 goal_diagonals.push([spheres[7].position, spheres[0].position]);
-goal_diagonals.push([spheres[5].position, spheres[2].position]);
-goal_diagonals.push([spheres[4].position, spheres[3].position]);
-goal_diagonals.push([spheres[1].position, spheres[6].position]);
+goal_diagonals.push([spheres[2].position, spheres[5].position]);
+goal_diagonals.push([spheres[3].position, spheres[4].position]);
+goal_diagonals.push([spheres[6].position, spheres[1].position]);
 
 var goal_spheres = spheres.map(i => i.position.clone());
-var diagonals_to_spheres = { 0: [7, 0], 1: [5, 2], 2: [4, 3], 3: [1, 6] };
+var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
 
 console.log(goal_spheres);
 
