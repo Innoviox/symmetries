@@ -18,35 +18,33 @@ controls.update();
 
 // let faces = { '0145': 0xff0000, '2367': 0x00ff00, '            '
 
-// function make_sided_material(piece) {
-//     const material = new THREE.MeshBasicMaterial({
-//         vertexColors: true
-//     });
-//     const colors = [];
+function make_sided_material(piece) {
+    const material = new THREE.MeshBasicMaterial({
+        vertexColors: true
+    });
+    const colors = [];
 
-//     const color = new THREE.Color();
+    const color = new THREE.Color();
 
-//     const positionAttribute = piece.getAttribute('position');
+    const positionAttribute = piece.getAttribute('position');
 
-//     for (let i = 0; i < positionAttribute.count; i += 3) {
-//         let j = 0xffffff * Math.random();
-//         console.log(j);
-//         color.setHex(j);
+    for (let i = 0; i < positionAttribute.count; i += 3) {
+        color.setHex(parseInt(0xffffff * Math.random()));
 
-//         colors.push(color.r, color.g, color.b);
-//         colors.push(color.r, color.g, color.b);
-//         colors.push(color.r, color.g, color.b);
+        colors.push(color.r, color.g, color.b);
+        colors.push(color.r, color.g, color.b);
+        colors.push(color.r, color.g, color.b);
 
-//         colors.push(color.r, color.g, color.b);
-//         colors.push(color.r, color.g, color.b);
-//         colors.push(color.r, color.g, color.b);
-//     }
+        colors.push(color.r, color.g, color.b);
+        colors.push(color.r, color.g, color.b);
+        colors.push(color.r, color.g, color.b);
+    }
 
-//     // define the new attribute
-//     piece.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+    // define the new attribute
+    piece.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-//     return material;
-// }
+    return material;
+}
 
 function line(from, to, color) {
     const material = new THREE.LineBasicMaterial({ color: color });
@@ -61,35 +59,13 @@ function line(from, to, color) {
 }
 
 const cube = new THREE.BoxGeometry(10, 10, 10);
-const cubeMesh = new THREE.Mesh(cube, new THREE.MeshBasicMaterial({ color: 0xffffff }));
+const cubeMesh = new THREE.Mesh(cube, make_sided_material(cube));
 cubeMesh.position.set(0, 0, 0);
+scene.add(cubeMesh);
+
 const edges = new THREE.EdgesGeometry(cube);
 const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
 scene.add(lines);
-// scene.add(cubeMesh);
-
-let faces_colors = Array(6).fill(0).map(i => parseInt(0xffffff * Math.random()));
-console.log(faces_colors);
-function makeMaterial(i) {
-    let mat = new THREE.MeshBasicMaterial({ color: faces_colors[i] });
-    mat.side = THREE.DoubleSide;
-    return mat;
-}
-let faces = [0, 1, 2, 3, 4, 5].map(i => new THREE.Mesh(new THREE.PlaneGeometry(10, 10), makeMaterial(i)));
-console.log(faces);
-faces[0].position.set(5, 0, 0);
-faces[1].position.set(-5, 0, 0);
-faces[2].position.set(0, 5, 0);
-faces[3].position.set(0, -5, 0);
-faces[4].position.set(0, 0, 5);
-faces[5].position.set(0, 0, -5);
-
-faces[0].rotation.y += Math.PI / 2;
-faces[1].rotation.y += Math.PI / 2;
-faces[2].rotation.x += Math.PI / 2;
-faces[3].rotation.x += Math.PI / 2;
-
-scene.add(...faces);
 
 // palette from https://mokole.com/palette.html
 let spheres = [];

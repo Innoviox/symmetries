@@ -6,7 +6,11 @@ TODO
 - ~~move the spheres~~
 - generate all sigmas
   - color the sigmas based on the diagonal colors
-- make faces
+- ~~make faces~~
+- make faces better
+- move faces
+- disable buttons while animation is happening
+- make faces transparent while things move
 - make more shapes
 - add explanation
 - add explanation of sigmas
