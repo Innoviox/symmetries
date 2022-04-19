@@ -85,10 +85,10 @@ spheres[7].position.set(cubeMesh.position.x - 5, cubeMesh.position.y - 5, cubeMe
 let diagonals = [];
 
 var goal_diagonals = [];
-goal_diagonals.push([spheres[7].position, spheres[0].position]);
-goal_diagonals.push([spheres[2].position, spheres[5].position]);
-goal_diagonals.push([spheres[3].position, spheres[4].position]);
-goal_diagonals.push([spheres[6].position, spheres[1].position]);
+goal_diagonals.push([spheres[7].position.clone(), spheres[0].position.clone()]);
+goal_diagonals.push([spheres[2].position.clone(), spheres[5].position.clone()]);
+goal_diagonals.push([spheres[3].position.clone(), spheres[4].position.clone()]);
+goal_diagonals.push([spheres[6].position.clone(), spheres[1].position.clone()]);
 
 var goal_spheres = spheres.map(i => i.position.clone());
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
@@ -122,30 +122,14 @@ function animateSigma(b) {
         }
     }
 
-    // let new_spheres = goal_spheres.map(i => i);
-    // let goal_clone = goal_spheres.map(i => i);
-
     for (let i = 0; i < cycles.length; i++) {
         // todo clean
-        goal_diagonals[cycles[i][0]] = get_points(diagonals[cycles[i][1]]);
-        goal_diagonals[cycles[i][1]] = get_points(diagonals[cycles[i][0]]);
+        goal_diagonals[cycles[i][0]].copy(spheres[diagonals_to_spheres[cycles[i][1]][0]].position);
+        goal_diagonals[cycles[i][1]].copy(spheres[diagonals_to_spheres[cycles[i][1]][1]].position);
 
         goal_spheres[diagonals_to_spheres[cycles[i][0]][0]].copy(spheres[diagonals_to_spheres[cycles[i][1]][0]].position);
         goal_spheres[diagonals_to_spheres[cycles[i][0]][1]].copy(spheres[diagonals_to_spheres[cycles[i][1]][1]].position);
-        // a[diagonals_to_spheres[cycles[i][0]][0]] = diagonals_to_spheres[cycles[i][1]][0]
-        // a[diagonals_to_spheres[cycles[i][0]][1]] = diagonals_to_spheres[cycles[i][1]][1]
     }
-
-    // for (let i = 0; i < goal_spheres.length; i++) {
-    //     spheres[i].position.copy(goal_spheres[i]);
-    //     // spheres[i].position.x = spheres[i].position.x + (goal_spheres[i].x - spheres[i].position.x) * time / (anim_length);
-    //     // spheres[i].position.y = spheres[i].position.y + (goal_spheres[i].y - spheres[i].position.y) * time / (anim_length);
-    //     // spheres[i].position.z = spheres[i].position.z + (goal_spheres[i].z - spheres[i].position.z) * time / (anim_length);
-    // }
-
-    // goal_spheres = new_spheres;
-    // console.log(a);
-    // console.log(goal_spheres.map(i => i));
 
     time = 0; // start animation
 }
