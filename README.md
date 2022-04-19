@@ -8,6 +8,7 @@ TODO
   - color the sigmas based on the diagonal colors
 - ~~make faces~~
 - make faces better
+- make spheres so that they follow the faces (tie the positions to the positions of the cube aces)
 - move faces
 - disable buttons while animation is happening
 - make faces transparent while things move
@@ -25,3 +26,4 @@ TODO
 - (12)(34): two rotates
 - (1324): three rotates
 - 
+

@@ -2,13 +2,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { chunk } from 'lodash';
 
+const half = Math.PI / 2;
+
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById('container').appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xd9d5ca);
-
 
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -98,6 +99,8 @@ goal_diagonals.push([spheres[6].position.clone(), spheres[1].position.clone()]);
 var goal_spheres = spheres.map(i => i.position.clone());
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
 
+var goal_rotate = new THREE.Vector3(0, 0, 0);
+
 console.log(goal_spheres);
 
 for (let i = 0; i < spheres.length; i++) {
@@ -138,6 +141,14 @@ function animateSigma(b) {
 
         goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
         goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
+    }
+
+    switch (b.target.id) {
+        case "#1-2-3-4": goal_rotate = new THREE.Vector3(0, 0, 0); break;
+        case "#1423": goal_rotate.y -= half; break;
+        case "#12-34": goal_rotate.y -= 2 * half; break;
+        case "#1324": goal_rotate.y += half; break;
+        default: break;
     }
 
     time = 0; // start animation
@@ -184,6 +195,10 @@ function animate() {
             spheres[i].position.y = spheres[i].position.y + (goal_spheres[i].y - spheres[i].position.y) * time / (anim_length);
             spheres[i].position.z = spheres[i].position.z + (goal_spheres[i].z - spheres[i].position.z) * time / (anim_length);
         }
+
+        cubeMesh.rotation.x = cubeMesh.rotation.x + (goal_rotate.x - cubeMesh.rotation.x) * time / anim_length;
+        cubeMesh.rotation.y = cubeMesh.rotation.y + (goal_rotate.y - cubeMesh.rotation.y) * time / anim_length;
+        cubeMesh.rotation.z = cubeMesh.rotation.z + (goal_rotate.z - cubeMesh.rotation.z) * time / anim_length;
     } else if (time == anim_length) {
         console.log(calculate_faces());
         time += 1;
