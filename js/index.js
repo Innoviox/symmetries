@@ -90,10 +90,10 @@ goal_diagonals.push([spheres[5].position, spheres[2].position]);
 goal_diagonals.push([spheres[4].position, spheres[3].position]);
 goal_diagonals.push([spheres[1].position, spheres[6].position]);
 
-var goal_spheres = spheres.map(i => i.position);
+var goal_spheres = spheres.map(i => i.position.clone());
 var diagonals_to_spheres = { 0: [7, 0], 1: [5, 2], 2: [4, 3], 3: [1, 6] };
 
-console.log(goal_diagonals);
+console.log(goal_spheres);
 
 for (let i = 0; i < spheres.length; i++) {
     scene.add(spheres[i]);
@@ -106,7 +106,7 @@ for (let i = 0; i < goal_diagonals.length; i++) {
     scene.add(diagonals[i]);
 }
 
-let time = 2001;
+let time = 2001; // not hacky dw
 let anim_length = 2000;
 
 function get_points(line) {
@@ -122,17 +122,32 @@ function animateSigma(b) {
         }
     }
 
-    time = 0;
+    // let new_spheres = goal_spheres.map(i => i);
+    // let goal_clone = goal_spheres.map(i => i);
 
     for (let i = 0; i < cycles.length; i++) {
         // todo clean
         goal_diagonals[cycles[i][0]] = get_points(diagonals[cycles[i][1]]);
         goal_diagonals[cycles[i][1]] = get_points(diagonals[cycles[i][0]]);
 
-        goal_spheres[diagonals_to_spheres[cycles[i][0]][0]] = spheres[diagonals_to_spheres[cycles[i][1]][0]].position;
-        goal_spheres[diagonals_to_spheres[cycles[i][0]][1]] = spheres[diagonals_to_spheres[cycles[i][1]][1]].position;
+        goal_spheres[diagonals_to_spheres[cycles[i][0]][0]].copy(spheres[diagonals_to_spheres[cycles[i][1]][0]].position);
+        goal_spheres[diagonals_to_spheres[cycles[i][0]][1]].copy(spheres[diagonals_to_spheres[cycles[i][1]][1]].position);
+        // a[diagonals_to_spheres[cycles[i][0]][0]] = diagonals_to_spheres[cycles[i][1]][0]
+        // a[diagonals_to_spheres[cycles[i][0]][1]] = diagonals_to_spheres[cycles[i][1]][1]
     }
-    console.log(goal_diagonals);
+
+    // for (let i = 0; i < goal_spheres.length; i++) {
+    //     spheres[i].position.copy(goal_spheres[i]);
+    //     // spheres[i].position.x = spheres[i].position.x + (goal_spheres[i].x - spheres[i].position.x) * time / (anim_length);
+    //     // spheres[i].position.y = spheres[i].position.y + (goal_spheres[i].y - spheres[i].position.y) * time / (anim_length);
+    //     // spheres[i].position.z = spheres[i].position.z + (goal_spheres[i].z - spheres[i].position.z) * time / (anim_length);
+    // }
+
+    // goal_spheres = new_spheres;
+    // console.log(a);
+    // console.log(goal_spheres.map(i => i));
+
+    time = 0; // start animation
 }
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
@@ -154,7 +169,8 @@ function animate() {
 
             let new_points = []
             for (let j = 0; j < current.length; j++) {
-                new_points.push(new THREE.Vector3(current[j].x + (goal[j].x - current[j].x) * time / (anim_length),
+                new_points.push(new THREE.Vector3(
+                    current[j].x + (goal[j].x - current[j].x) * time / (anim_length),
                     current[j].y + (goal[j].y - current[j].y) * time / (anim_length),
                     current[j].z + (goal[j].z - current[j].z) * time / (anim_length)));
             }
@@ -163,6 +179,7 @@ function animate() {
         }
 
         for (let i = 0; i < goal_spheres.length; i++) {
+            // spheres[i].position.copy(goal_spheres[i]);
             spheres[i].position.x = spheres[i].position.x + (goal_spheres[i].x - spheres[i].position.x) * time / (anim_length);
             spheres[i].position.y = spheres[i].position.y + (goal_spheres[i].y - spheres[i].position.y) * time / (anim_length);
             spheres[i].position.z = spheres[i].position.z + (goal_spheres[i].z - spheres[i].position.z) * time / (anim_length);
