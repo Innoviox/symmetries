@@ -63,7 +63,7 @@ function line(from, to, color) {
 const cube = new THREE.BoxGeometry(10, 10, 10);
 const cubeMesh = new THREE.Mesh(cube, make_sided_material(cube));
 cubeMesh.position.set(0, 0, 0);
-// scene.add(cubeMesh);
+scene.add(cubeMesh);
 
 const edges = new THREE.EdgesGeometry(cube);
 const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
@@ -159,9 +159,9 @@ function animateSigma(b) {
         }
     }
 
-    goal_rotate.x += x * half;
-    goal_rotate.y += y * half;
-    goal_rotate.z += z * half;
+    // goal_rotate.x += x * half;
+    // goal_rotate.y += y * half;
+    // goal_rotate.z += z * half;
 
     // switch (b.target.id) {
     //     case "#1-2-3-4": goal_rotate = new THREE.Vector3(0, 0, 0); break;
@@ -193,6 +193,19 @@ function flip(b) {
     time = 1999; // start animation
 }
 
+function rot(b) {
+    let id = b.target.id.substring(4);
+    console.log("rotating", id);
+    if (id === 'x') {
+        goal_rotate.x += half;
+    } else if (id === 'y') {
+        goal_rotate.y += half;
+    } else if (id === 'z') {
+        goal_rotate.z += half;
+    }
+    time = 1999; // start animation
+}
+
 document.getElementById("sigmatable");
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
@@ -201,6 +214,10 @@ Array.from(document.getElementsByClassName("sigma")).forEach(function (element) 
 
 Array.from(document.getElementsByClassName("helper-flip")).forEach(function (element) {
     element.addEventListener('click', flip);
+});
+
+Array.from(document.getElementsByClassName("helper-rot")).forEach(function (element) {
+    element.addEventListener('click', rot);
 });
 
 
