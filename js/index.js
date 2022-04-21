@@ -142,8 +142,13 @@ function animateSigma(b) {
 
         goal_diagonals[from] = [spheres[to_spheres[0]].position.clone(), spheres[to_spheres[1]].position.clone()];
 
+        /* if (from === 1 || from === 2) {
+            goal_spheres[from_spheres[0]].copy(spheres[to_spheres[1]].position);
+            goal_spheres[from_spheres[1]].copy(spheres[to_spheres[0]].position);
+        } else { */
         goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
         goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
+        // }
 
         if (from === 0) {
             /* 4 => -1, 2 => -2, 3 => 1 */
