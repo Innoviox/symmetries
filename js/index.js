@@ -178,10 +178,29 @@ function calculate_faces() {
 
 }
 
+function flip(b) {
+    let id = b.target.id;
+    let from = parseInt(id.substring(4) - 1);
+    console.log("flipping", from);
+
+    let sph = diagonals_to_spheres[from];
+    // let to_spheres = diagonals_to_spheres[to];
+
+    // goal_diagonals[from] = [spheres[sph[1]].position.clone(), spheres[sph[0]].position.clone()];
+    goal_spheres[sph[0]].copy(spheres[sph[1]].position);
+    goal_spheres[sph[1]].copy(spheres[sph[0]].position);
+
+    time = 1999; // start animation
+}
+
 document.getElementById("sigmatable");
 
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
     element.addEventListener('click', animateSigma);
+});
+
+Array.from(document.getElementsByClassName("helper-flip")).forEach(function (element) {
+    element.addEventListener('click', flip);
 });
 
 

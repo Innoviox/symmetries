@@ -8,9 +8,17 @@
 
 #sigmas {
     width: 20%;
-    height: 100%;
+    height: 80%;
     overflow: auto;
     left: 80%;
+    position: absolute;
+}
+
+#helperdiv {
+    width: 20%;
+    height: 20%;
+    left: 80%;
+    top: 80%;
     position: absolute;
 }
 
