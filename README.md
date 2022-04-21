@@ -26,5 +26,10 @@ TODO
 - (1423): one rotate
 - (12)(34): two rotates
 - (1324): three rotates
-- 
+- 1->3->4'->2->1'
+  - 1->**3**->4->**2**
+- 1 (243)
+- 1->1 2->4'->3->2'
+- 1 -> 1 **2**->4->**3**
 
+- diagonal is bold => it flips when it gets transformed

@@ -18,6 +18,7 @@ camera.position.set(0, 20, 100);
 controls.update();
 
 // let faces = { '0145': 0xff0000, '2367': 0x00ff00, '            '
+let face_colors = [0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 0x00ffff, 0xff00ff];
 
 function make_sided_material(piece) {
     const material = new THREE.MeshBasicMaterial({
@@ -30,7 +31,7 @@ function make_sided_material(piece) {
     const positionAttribute = piece.getAttribute('position');
 
     for (let i = 0; i < positionAttribute.count; i += 3) {
-        color.setHex(parseInt(0xffffff * Math.random()));
+        color.setHex(face_colors[i / 3], 'srgb-linear');
 
         colors.push(color.r, color.g, color.b);
         colors.push(color.r, color.g, color.b);
@@ -62,7 +63,7 @@ function line(from, to, color) {
 const cube = new THREE.BoxGeometry(10, 10, 10);
 const cubeMesh = new THREE.Mesh(cube, make_sided_material(cube));
 cubeMesh.position.set(0, 0, 0);
-scene.add(cubeMesh);
+// scene.add(cubeMesh);
 
 const edges = new THREE.EdgesGeometry(cube);
 const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
@@ -130,6 +131,8 @@ function animateSigma(b) {
         }
     }
 
+    let x = 0, y = 0, z = 0;
+
     for (let i = 0; i < cycles.length; i++) {
         let from = cycles[i][0];
         let to = cycles[i][1];
@@ -144,12 +147,16 @@ function animateSigma(b) {
 
         if (from === 0) {
             /* 4 => -1, 2 => -2, 3 => 1 */
-            let k = to === 3 ? -1 : to === 1 ? -2 : to === 2 ? 1 : 0;
-            console.log(from, to, k);
-            console.log(cycles);
-            goal_rotate.y += k * half;
+            y = to === 3 ? -1 : to === 1 ? -2 : to === 2 ? 1 : 0;
+        }
+        if (from === 2) {
+            z = to === 3 ? 2 : 0;
         }
     }
+
+    goal_rotate.x += x * half;
+    goal_rotate.y += y * half;
+    goal_rotate.z += z * half;
 
     // switch (b.target.id) {
     //     case "#1-2-3-4": goal_rotate = new THREE.Vector3(0, 0, 0); break;
