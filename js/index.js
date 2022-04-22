@@ -203,6 +203,7 @@ function rot(b) {
     } else if (id === 'z') {
         goal_rotate.z += half;
     }
+    console.log(goal_rotate);
     time = 1999; // start animation
 }
 
@@ -256,7 +257,7 @@ function animate() {
         cubeMesh.rotation.y = cubeMesh.rotation.y + (goal_rotate.y - cubeMesh.rotation.y) * time / anim_length;
         cubeMesh.rotation.z = cubeMesh.rotation.z + (goal_rotate.z - cubeMesh.rotation.z) * time / anim_length;
     } else if (time == anim_length) {
-        console.log(calculate_faces());
+        // console.log(calculate_faces());
         time += 1;
     }
 
