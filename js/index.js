@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { chunk } from 'lodash';
+import { data } from './data.js';
+
 
 const half = Math.PI / 2;
 
@@ -63,7 +65,7 @@ function line(from, to, color) {
 const cube = new THREE.BoxGeometry(10, 10, 10);
 const cubeMesh = new THREE.Mesh(cube, make_sided_material(cube));
 cubeMesh.position.set(0, 0, 0);
-scene.add(cubeMesh);
+// scene.add(cubeMesh);
 
 const edges = new THREE.EdgesGeometry(cube);
 const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
@@ -124,14 +126,16 @@ function get_points(line) {
 }
 
 function animateSigma(b) {
+    let id = b.target.id;
     let cycles = [];
-    for (let i of b.target.id.substring(1).split("-")) {
+    for (let i of id.substring(1).split("-")) {
         for (let j = 0; j < i.length; j++) {
             cycles.push([parseInt(i[j]) - 1, parseInt(i[(j + 1) % i.length]) - 1]);
         }
     }
 
     let x = 0, y = 0, z = 0;
+    let inversions = data[id][0];
 
     for (let i = 0; i < cycles.length; i++) {
         let from = cycles[i][0];
@@ -140,36 +144,20 @@ function animateSigma(b) {
         let from_spheres = diagonals_to_spheres[from];
         let to_spheres = diagonals_to_spheres[to];
 
-        goal_diagonals[from] = [spheres[to_spheres[0]].position.clone(), spheres[to_spheres[1]].position.clone()];
-
-        /* if (from === 1 || from === 2) {
+        if (inversions[from] === 1) {
+            goal_diagonals[from] = [spheres[to_spheres[1]].position.clone(), spheres[to_spheres[0]].position.clone()];
             goal_spheres[from_spheres[0]].copy(spheres[to_spheres[1]].position);
             goal_spheres[from_spheres[1]].copy(spheres[to_spheres[0]].position);
-        } else { */
-        goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
-        goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
-        // }
-
-        if (from === 0) {
-            /* 4 => -1, 2 => -2, 3 => 1 */
-            y = to === 3 ? -1 : to === 1 ? -2 : to === 2 ? 1 : 0;
-        }
-        if (from === 2) {
-            z = to === 3 ? 2 : 0;
+        } else {
+            goal_diagonals[from] = [spheres[to_spheres[0]].position.clone(), spheres[to_spheres[1]].position.clone()];
+            goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
+            goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
         }
     }
 
-    // goal_rotate.x += x * half;
-    // goal_rotate.y += y * half;
-    // goal_rotate.z += z * half;
-
-    // switch (b.target.id) {
-    //     case "#1-2-3-4": goal_rotate = new THREE.Vector3(0, 0, 0); break;
-    //     case "#1423": goal_rotate.y -= half; break;
-    //     case "#12-34": goal_rotate.y -= 2 * half; break;
-    //     case "#1324": goal_rotate.y += half; break;
-    //     default: break;
-    // }
+    goal_rotate.x += data[id][1][0] * half;
+    goal_rotate.y += data[id][1][1] * half;
+    goal_rotate.z += data[id][1][2] * half;
 
     time = 0; // start animation
 }
