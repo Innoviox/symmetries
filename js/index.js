@@ -63,7 +63,7 @@ function line(from, to, color) {
 const cube = new THREE.BoxGeometry(10, 10, 10);
 const cubeMesh = new THREE.Mesh(cube, make_sided_material(cube));
 cubeMesh.position.set(0, 0, 0);
-scene.add(cubeMesh);
+// scene.add(cubeMesh);
 
 const edges = new THREE.EdgesGeometry(cube);
 const lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
