@@ -1,6 +1,22 @@
 <canvas id="canvas" width="800px" height="800px"></canvas>
 
 <script>
+    function canvas_arrow(context, fromx, fromy, tox, toy) {
+        context.beginPath();
+
+        var headlen = 10; // length of head in pixels
+        var dx = tox - fromx;
+        var dy = toy - fromy;
+        var angle = Math.atan2(dy, dx);
+        context.moveTo(fromx, fromy);
+        context.lineTo(tox, toy);
+        context.lineTo(tox - headlen * Math.cos(angle - Math.PI / 6), toy - headlen * Math.sin(angle - Math.PI / 6));
+        context.moveTo(tox, toy);
+        context.lineTo(tox - headlen * Math.cos(angle + Math.PI / 6), toy - headlen * Math.sin(angle + Math.PI / 6));
+
+        context.stroke();
+    }
+
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
 
@@ -24,5 +40,10 @@
     ctx.fillText("2", 585, 260);
     ctx.fillText("3", 585, 370);
     ctx.fillText("4", 585, 480);
+
+    canvas_arrow(ctx, 320, 130, 580, 240);
+    canvas_arrow(ctx, 320, 240, 580, 350);
+    canvas_arrow(ctx, 320, 350, 580, 130);
+    canvas_arrow(ctx, 320, 460, 580, 460);
 
 </script>
