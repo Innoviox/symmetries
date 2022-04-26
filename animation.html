@@ -39,14 +39,14 @@
         ctx.fillText("4", 285, 480);
 
 
-        ctx.fillText("1", 585, 150 + (260 - 150) * n / 100);
-        ctx.fillText("2", 585, 260 + (370 - 260) * n / 100);
-        ctx.fillText("3", 585, 370 + (150 - 370) * n / 100);
+        ctx.fillText("1", 585, 150 + (370 - 150) * n / 100);
+        ctx.fillText("2", 585, 260 + (150 - 260) * n / 100);
+        ctx.fillText("3", 585, 370 + (150 - 260) * n / 100);
         ctx.fillText("4", 585, 480);
 
-        canvas_arrow(ctx, 320, 130, 580, 240);
-        canvas_arrow(ctx, 320, 240, 580, 350);
-        canvas_arrow(ctx, 320, 350, 580, 130);
+        canvas_arrow(ctx, 320, 130, 580, 240 + (130 - 240) * n / 100);
+        canvas_arrow(ctx, 320, 240, 580, 350 + (130 - 240) * n / 100);
+        canvas_arrow(ctx, 320, 350, 580, 130 + (370 - 150) * n / 100);
         canvas_arrow(ctx, 320, 460, 580, 460);
 
         if (n < 100) {
