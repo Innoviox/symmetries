@@ -1,0 +1,28 @@
+<canvas id="canvas" width="800px" height="800px"></canvas>
+
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+
+    ctx.font = '60px sans-serif';
+
+    ctx.beginPath();
+    ctx.ellipse(300, 300, 100, 250, 0, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.ellipse(600, 300, 100, 250, 0, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    ctx.fillText("1", 285, 150);
+    ctx.fillText("2", 285, 260);
+    ctx.fillText("3", 285, 370);
+    ctx.fillText("4", 285, 480);
+
+
+    ctx.fillText("1", 585, 150);
+    ctx.fillText("2", 585, 260);
+    ctx.fillText("3", 585, 370);
+    ctx.fillText("4", 585, 480);
+
+</script>

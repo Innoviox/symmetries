@@ -175,3 +175,15 @@ Y = LG LB PU PI
 RG = LB DG PI Y
 
 B = PI PU Y R
+
+# Roadmap
+
+- notation
+  - "numbers": show map from 1,2,3,4 -> 1,3,2,4
+  - animate map => table
+  - animate table => full cycles
+  - get rid of fixed
+- cube
+  - "might think that we can use S8"
+  - permute the points
+  - 
