@@ -1,9 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Cube from './cube.js';
-
-
-const half = Math.PI / 2;
+import { anim_loop } from './animate.js';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -27,7 +25,7 @@ function animate() {
     // required if controls.enableDamping or controls.autoRotate are set to true
     controls.update();
 
-    // anim_loop();
+    anim_loop(cube);
     renderer.render(scene, camera);
 }
 

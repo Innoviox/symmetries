@@ -6,15 +6,14 @@ let time = 2001; // not hacky dw
 let anim_length = 2000;
 
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
-
-var goal_rotate = new THREE.Vector3(0, 0, 0);
+const half = Math.PI / 2;
 
 function get_points(line) {
     let points = line.geometry.attributes.position.array;
     return chunk(points, 3).map(i => new THREE.Vector3(...i));
 }
 
-function animateSigma(b) {
+function animateSigma(cube, b) {
     let id = b.target.id;
     let cycles = [];
     for (let i of id.substring(1).split("-")) {
@@ -51,44 +50,16 @@ function animateSigma(b) {
     time = 0; // start animation
 }
 
-function animate_cube() {
-    for (let i = 0; i < goal_diagonals.length; i++) {
-        let goal = goal_diagonals[i];
-        let current = get_points(diagonals[i]);
-
-        let new_points = []
-        for (let j = 0; j < current.length; j++) {
-            new_points.push(new THREE.Vector3(
-                current[j].x + (goal[j].x - current[j].x) * time / (anim_length),
-                current[j].y + (goal[j].y - current[j].y) * time / (anim_length),
-                current[j].z + (goal[j].z - current[j].z) * time / (anim_length)));
-        }
-
-        diagonals[i].geometry.setFromPoints(new_points);
-    }
-
-    for (let i = 0; i < goal_spheres.length; i++) {
-        // spheres[i].position.copy(goal_spheres[i]);
-        spheres[i].position.x = spheres[i].position.x + (goal_spheres[i].x - spheres[i].position.x) * time / (anim_length);
-        spheres[i].position.y = spheres[i].position.y + (goal_spheres[i].y - spheres[i].position.y) * time / (anim_length);
-        spheres[i].position.z = spheres[i].position.z + (goal_spheres[i].z - spheres[i].position.z) * time / (anim_length);
-    }
-
-    cubeMesh.rotation.x = cubeMesh.rotation.x + (goal_rotate.x - cubeMesh.rotation.x) * time / anim_length;
-    cubeMesh.rotation.y = cubeMesh.rotation.y + (goal_rotate.y - cubeMesh.rotation.y) * time / anim_length;
-    cubeMesh.rotation.z = cubeMesh.rotation.z + (goal_rotate.z - cubeMesh.rotation.z) * time / anim_length;
-}
-
 Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
     element.addEventListener('click', animateSigma);
 });
 
-function anim_loop() {
+function anim_loop(cube) {
     if (time < anim_length) {
         time += 1;
-        animate_cube();
+        cube.animate(time / anim_length);
     } else if (time == anim_length) {
-        // console.log(calculate_faces());
+        // finished animation
         time += 1;
     }
 }
