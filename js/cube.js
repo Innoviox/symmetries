@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { make_sided_material, line } from './draw.js';
 import { sphere_colors, diagonal_colors } from './utils.js';
+import { chunk } from 'lodash';
 
 function get_points(line) {
     let points = line.geometry.attributes.position.array;
@@ -8,56 +9,57 @@ function get_points(line) {
 }
 
 export default class Cube {
+    spheres = [];
+    diagonals = [];
+
+    goal_spheres = [];
+    goal_diagonals = [];
+    goal_rotate = new THREE.Vector3(0, 0, 0);
+
     constructor(width, position) {
-        self.cube = new THREE.BoxGeometry(width, width, width);
-        self.cubeMesh = new THREE.Mesh(self.cube, make_sided_material(self.cube));
-        self.cubeMesh.position.copy(position);
+        this.cube = new THREE.BoxGeometry(width, width, width);
+        this.cubeMesh = new THREE.Mesh(this.cube, make_sided_material(this.cube));
+        this.cubeMesh.position.copy(position);
 
-        const edges = new THREE.EdgesGeometry(self.cube);
-        self.lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
-
-        self.spheres = [];
-        self.goal_spheres = [];
+        const edges = new THREE.EdgesGeometry(this.cube);
+        this.lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
 
         for (let i = 0; i < 8; i++) {
             const sphere = new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: sphere_colors[i] }));
             sphere.position.set(cubeMesh.position.x + (i % 2 == 0 ? 1 : -1) * 5,
                 cubeMesh.position.y + (i % 4 < 2 ? 1 : -1) * 5,
                 cubeMesh.position.z + (i < 4 ? 1 : -1) * 5);
-            self.goal_spheres.push(sphere.position.clone());
-            self.spheres.push(sphere);
+            this.goal_spheres.push(sphere.position.clone());
+            this.spheres.push(sphere);
         }
 
-        self.goal_diagonals = [];
-        self.goal_diagonals.push([self.spheres[7].position.clone(), self.spheres[0].position.clone()]);
-        self.goal_diagonals.push([self.spheres[2].position.clone(), self.spheres[5].position.clone()]);
-        self.goal_diagonals.push([self.spheres[3].position.clone(), self.spheres[4].position.clone()]);
-        self.goal_diagonals.push([self.spheres[6].position.clone(), self.spheres[1].position.clone()]);
+        this.goal_diagonals.push([this.spheres[7].position.clone(), this.spheres[0].position.clone()]);
+        this.goal_diagonals.push([this.spheres[2].position.clone(), this.spheres[5].position.clone()]);
+        this.goal_diagonals.push([this.spheres[3].position.clone(), this.spheres[4].position.clone()]);
+        this.goal_diagonals.push([this.spheres[6].position.clone(), this.spheres[1].position.clone()]);
 
-        self.diagonals = [];
-
-        for (let i = 0; i < self.goal_diagonals.length; i++) {
-            self.diagonals.push(line(self.goal_diagonals[i][0], self.goal_diagonals[i][1], diagonal_colors[i])); // todo color
+        for (let i = 0; i < this.goal_diagonals.length; i++) {
+            this.diagonals.push(line(this.goal_diagonals[i][0], this.goal_diagonals[i][1], diagonal_colors[i])); // todo color
         }
 
-        self.goal_rotate = new THREE.Vector3(0, 0, 0);
+        console.log("constructed!");
     }
 
     add_to_scene(scene) {
-        scene.add(self.lines);
-        for (let i = 0; i < self.spheres.length; i++) {
-            scene.add(self.spheres[i]);
+        scene.add(this.lines);
+        for (let i = 0; i < this.spheres.length; i++) {
+            scene.add(this.spheres[i]);
         }
 
-        for (let i = 0; i < self.diagonals.length; i++) {
+        for (let i = 0; i < this.diagonals.length; i++) {
             scene.add(diagonals[i]);
         }
     }
 
     animate(delta) {
-        for (let i = 0; i < self.goal_diagonals.length; i++) {
-            let goal = self.goal_diagonals[i];
-            let current = get_points(self.diagonals[i]);
+        for (let i = 0; i < this.goal_diagonals.length; i++) {
+            let goal = this.goal_diagonals[i];
+            let current = get_points(this.diagonals[i]);
 
             let new_points = []
             for (let j = 0; j < current.length; j++) {
@@ -67,18 +69,18 @@ export default class Cube {
                     current[j].z + (goal[j].z - current[j].z) * delta));
             }
 
-            self.diagonals[i].geometry.setFromPoints(new_points);
+            this.diagonals[i].geometry.setFromPoints(new_points);
         }
 
-        for (let i = 0; i < self.goal_spheres.length; i++) {
+        for (let i = 0; i < this.goal_spheres.length; i++) {
             // spheres[i].position.copy(goal_spheres[i]);
-            self.spheres[i].position.x = self.spheres[i].position.x + (self.goal_spheres[i].x - self.spheres[i].position.x) * delta;
-            self.spheres[i].position.y = self.spheres[i].position.y + (self.goal_spheres[i].y - self.spheres[i].position.y) * delta;
-            self.spheres[i].position.z = self.spheres[i].position.z + (self.goal_spheres[i].z - self.spheres[i].position.z) * delta;
+            this.spheres[i].position.x = this.spheres[i].position.x + (this.goal_spheres[i].x - this.spheres[i].position.x) * delta;
+            this.spheres[i].position.y = this.spheres[i].position.y + (this.goal_spheres[i].y - this.spheres[i].position.y) * delta;
+            this.spheres[i].position.z = this.spheres[i].position.z + (this.goal_spheres[i].z - this.spheres[i].position.z) * delta;
         }
 
-        self.cubeMesh.rotation.x = self.cubeMesh.rotation.x + (self.goal_rotate.x - self.cubeMesh.rotation.x) * delta;
-        self.cubeMesh.rotation.y = self.cubeMesh.rotation.y + (self.goal_rotate.y - self.cubeMesh.rotation.y) * delta;
-        self.cubeMesh.rotation.z = self.cubeMesh.rotation.z + (self.goal_rotate.z - self.cubeMesh.rotation.z) * delta;
+        this.cubeMesh.rotation.x = this.cubeMesh.rotation.x + (this.goal_rotate.x - this.cubeMesh.rotation.x) * delta;
+        this.cubeMesh.rotation.y = this.cubeMesh.rotation.y + (this.goal_rotate.y - this.cubeMesh.rotation.y) * delta;
+        this.cubeMesh.rotation.z = this.cubeMesh.rotation.z + (this.goal_rotate.z - this.cubeMesh.rotation.z) * delta;
     }
 };

@@ -1,6 +1,4 @@
-import * as THREE from 'three';
 import { data } from './data.js';
-import { chunk } from 'lodash';
 
 let time = 2001; // not hacky dw
 let anim_length = 2000;
@@ -8,12 +6,7 @@ let anim_length = 2000;
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
 const half = Math.PI / 2;
 
-function get_points(line) {
-    let points = line.geometry.attributes.position.array;
-    return chunk(points, 3).map(i => new THREE.Vector3(...i));
-}
-
-function animateSigma(cube, b) {
+let animateSigma = cube => b => {
     let id = b.target.id;
     let cycles = [];
     for (let i of id.substring(1).split("-")) {
@@ -22,9 +15,9 @@ function animateSigma(cube, b) {
         }
     }
 
-    let x = 0, y = 0, z = 0;
     let inversions = data[id][0];
 
+    console.log(cube);
     for (let i = 0; i < cycles.length; i++) {
         let from = cycles[i][0];
         let to = cycles[i][1];
@@ -33,26 +26,22 @@ function animateSigma(cube, b) {
         let to_spheres = diagonals_to_spheres[to];
 
         if (inversions[from] === 1) {
-            goal_diagonals[from] = [spheres[to_spheres[1]].position.clone(), spheres[to_spheres[0]].position.clone()];
-            goal_spheres[from_spheres[0]].copy(spheres[to_spheres[1]].position);
-            goal_spheres[from_spheres[1]].copy(spheres[to_spheres[0]].position);
+            cube.goal_diagonals[from] = [cube.spheres[to_spheres[1]].position.clone(), cube.spheres[to_spheres[0]].position.clone()];
+            cube.goal_spheres[from_spheres[0]].copy(cube.spheres[to_spheres[1]].position);
+            cube.goal_spheres[from_spheres[1]].copy(cube.spheres[to_spheres[0]].position);
         } else {
-            goal_diagonals[from] = [spheres[to_spheres[0]].position.clone(), spheres[to_spheres[1]].position.clone()];
-            goal_spheres[from_spheres[0]].copy(spheres[to_spheres[0]].position);
-            goal_spheres[from_spheres[1]].copy(spheres[to_spheres[1]].position);
+            cube.goal_diagonals[from] = [cube.spheres[to_spheres[0]].position.clone(), cube.spheres[to_spheres[1]].position.clone()];
+            cube.goal_spheres[from_spheres[0]].copy(cube.spheres[to_spheres[0]].position);
+            cube.goal_spheres[from_spheres[1]].copy(cube.spheres[to_spheres[1]].position);
         }
     }
 
-    goal_rotate.x += data[id][1][0] * half;
-    goal_rotate.y += data[id][1][1] * half;
-    goal_rotate.z += data[id][1][2] * half;
+    cube.goal_rotate.x += data[id][1][0] * half;
+    cube.goal_rotate.y += data[id][1][1] * half;
+    cube.goal_rotate.z += data[id][1][2] * half;
 
     time = 0; // start animation
-}
-
-Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
-    element.addEventListener('click', animateSigma);
-});
+};
 
 function anim_loop(cube) {
     if (time < anim_length) {
@@ -64,4 +53,4 @@ function anim_loop(cube) {
     }
 }
 
-export { anim_loop };
+export { animateSigma, anim_loop };
