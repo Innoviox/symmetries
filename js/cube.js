@@ -41,8 +41,6 @@ export default class Cube {
         for (let i = 0; i < this.goal_diagonals.length; i++) {
             this.diagonals.push(line(this.goal_diagonals[i][0], this.goal_diagonals[i][1], diagonal_colors[i])); // todo color
         }
-
-        console.log("constructed!");
     }
 
     add_to_scene(scene) {
@@ -55,7 +53,7 @@ export default class Cube {
             scene.add(this.diagonals[i]);
         }
 
-        scene.add(this.cubeMesh);
+        // scene.add(this.cubeMesh);
     }
 
     animate(delta) {

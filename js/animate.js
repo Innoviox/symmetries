@@ -1,7 +1,8 @@
 import { data } from './data.js';
+import { toggle_enabled } from './utils.js';
 
 let time = 2001; // not hacky dw
-let anim_length = 2000;
+let anim_length = 200;
 
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
 const half = Math.PI / 2;
@@ -40,14 +41,17 @@ let animateSigma = cube => b => {
     cube.goal_rotate.z += data[id][1][2] * half;
 
     time = 0; // start animation
+    toggle_enabled('sigma');
 };
 
 function anim_loop(cube) {
     if (time < anim_length) {
         time += 1;
-        cube.animate(time / anim_length);
+        cube.animate(1 / anim_length);
+        console.log(time, anim_length, time / anim_length);
     } else if (time == anim_length) {
         // finished animation
+        toggle_enabled('sigma');
         time += 1;
     }
 }
