@@ -17,7 +17,6 @@ let animateSigma = cube => b => {
 
     let inversions = data[id][0];
 
-    console.log(cube);
     for (let i = 0; i < cycles.length; i++) {
         let from = cycles[i][0];
         let to = cycles[i][1];

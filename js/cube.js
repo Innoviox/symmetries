@@ -26,9 +26,9 @@ export default class Cube {
 
         for (let i = 0; i < 8; i++) {
             const sphere = new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: sphere_colors[i] }));
-            sphere.position.set(cubeMesh.position.x + (i % 2 == 0 ? 1 : -1) * 5,
-                cubeMesh.position.y + (i % 4 < 2 ? 1 : -1) * 5,
-                cubeMesh.position.z + (i < 4 ? 1 : -1) * 5);
+            sphere.position.set(this.cubeMesh.position.x + (i % 2 == 0 ? 1 : -1) * 5,
+                this.cubeMesh.position.y + (i % 4 < 2 ? 1 : -1) * 5,
+                this.cubeMesh.position.z + (i < 4 ? 1 : -1) * 5);
             this.goal_spheres.push(sphere.position.clone());
             this.spheres.push(sphere);
         }
@@ -52,8 +52,10 @@ export default class Cube {
         }
 
         for (let i = 0; i < this.diagonals.length; i++) {
-            scene.add(diagonals[i]);
+            scene.add(this.diagonals[i]);
         }
+
+        scene.add(this.cubeMesh);
     }
 
     animate(delta) {
