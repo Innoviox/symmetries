@@ -53,7 +53,7 @@ export default class Cube {
             scene.add(this.diagonals[i]);
         }
 
-        // scene.add(this.cubeMesh);
+        scene.add(this.cubeMesh);
     }
 
     animate(delta) {

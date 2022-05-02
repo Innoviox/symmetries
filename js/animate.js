@@ -48,7 +48,6 @@ function anim_loop(cube) {
     if (time < anim_length) {
         time += 1;
         cube.animate(1 / anim_length);
-        console.log(time, anim_length, time / anim_length);
     } else if (time == anim_length) {
         // finished animation
         toggle_enabled('sigma');
