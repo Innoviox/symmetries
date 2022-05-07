@@ -101,7 +101,7 @@ export default class Cube {
     }
 
     show_cube() {
-        if (this.on) {
+        if (this.on) { // only show cube if slider is "on"
             this.cubeMesh.visible = true;
         }
     }

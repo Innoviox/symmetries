@@ -7,8 +7,14 @@ let time = anim_length + 1; // not hacky dw
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
 const half = Math.PI / 2;
 
+var inversions_enabled = false;
+
 let animateSigma = cube => b => {
     let id = b.target.id;
+    if (id === '') { // workaround for clicking on span
+        id = b.target.parentElement.id;
+    }
+
     let cycles = [];
     for (let i of id.substring(1).split("-")) {
         for (let j = 0; j < i.length; j++) {
@@ -25,7 +31,7 @@ let animateSigma = cube => b => {
         let from_spheres = diagonals_to_spheres[from];
         let to_spheres = diagonals_to_spheres[to];
 
-        if (inversions[from] === 1) {
+        if (inversions_enabled && inversions[from] === 1) {
             cube.goal_diagonals[from] = [cube.spheres[to_spheres[1]].position.clone(), cube.spheres[to_spheres[0]].position.clone()];
             cube.goal_spheres[from_spheres[0]].copy(cube.spheres[to_spheres[1]].position);
             cube.goal_spheres[from_spheres[1]].copy(cube.spheres[to_spheres[0]].position);

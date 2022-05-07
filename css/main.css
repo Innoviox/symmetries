@@ -32,3 +32,19 @@ body {
     position: relative;
     top: 7px;
 }
+
+.red {
+    color: red;
+}
+
+.yellow {
+    color: #c505ff;
+}
+
+.blue {
+    color: blue;
+}
+
+.green {
+    color: green;
+}
