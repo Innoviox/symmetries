@@ -20,6 +20,8 @@ export default class Cube {
     original_diagonals = [];
     original_rotate = new THREE.Vector3(0, 0, 0);
 
+    on = true;
+
     constructor(width, position) {
         this.cube = new THREE.BoxGeometry(width, width, width).toNonIndexed();
         this.cubeMesh = new THREE.Mesh(this.cube, make_sided_material(this.cube));
@@ -99,10 +101,8 @@ export default class Cube {
     }
 
     show_cube() {
-        this.cubeMesh.visible = true;
-    }
-
-    toggle_cube() {
-        this.cubeMesh.visible = !this.cubeMesh.visible;
+        if (this.on) {
+            this.cubeMesh.visible = true;
+        }
     }
 };
