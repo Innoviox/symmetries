@@ -6,22 +6,29 @@
     left: 0%;
 }
 
-#sigmas {
+#sigmacontainer {
     width: 20%;
-    height: 80%;
+    /* height: 80%; */
     overflow: auto;
     left: 80%;
     position: absolute;
+    padding: 10px;
 }
 
+/* 
 #helperdiv {
     width: 20%;
     height: 20%;
     left: 80%;
     top: 80%;
     position: absolute;
-}
+} */
 
 body {
     margin: 0;
+}
+
+.toppad {
+    position: relative;
+    top: 7px;
 }

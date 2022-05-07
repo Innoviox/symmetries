@@ -7,4 +7,4 @@
 - make spheres move with cube (optional, if we don't maybe don't show spheres)
   - i think we just hide the cube while animation is happening
 - make spheres smaller
-- make it more obvious when a diagonal is flipping
+- make it more obvious when a diagonal is flipping (animate flips last?)

@@ -27,10 +27,25 @@ function rot(b) {
     time = 1999; // start animation
 }
 
-Array.from(document.getElementsByClassName("helper-flip")).forEach(function (element) {
-    element.addEventListener('click', flip);
-});
+// Array.from(document.getElementsByClassName("helper-flip")).forEach(function (element) {
+//     element.addEventListener('click', flip);
+// });
 
-Array.from(document.getElementsByClassName("helper-rot")).forEach(function (element) {
-    element.addEventListener('click', rot);
-});
+// Array.from(document.getElementsByClassName("helper-rot")).forEach(function (element) {
+//     element.addEventListener('click', rot);
+// });
+function add_listeners(cube) {
+    document.getElementById("switched").addEventListener('click', function (b) {
+        if (b.target.checked) {
+            cube.show_cube();
+        } else {
+            cube.hide_cube();
+        }
+    });
+
+    Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
+        element.addEventListener('click', animateSigma(cube));
+    });
+}
+
+export { add_listeners };

@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Cube from './cube.js';
 import { animateSigma, anim_loop } from './animate.js';
+import { add_listeners } from './dom.js';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -19,9 +20,7 @@ controls.update();
 let cube = new Cube(10, new THREE.Vector3(0, 0, 0));
 cube.add_to_scene(scene);
 
-Array.from(document.getElementsByClassName("sigma")).forEach(function (element) {
-    element.addEventListener('click', animateSigma(cube));
-});
+add_listeners(cube);
 
 function animate() {
     requestAnimationFrame(animate);
@@ -33,4 +32,4 @@ function animate() {
     renderer.render(scene, camera);
 }
 
-animate()
+animate();
