@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { face_colors } from './utils.js';
 
-function make_sided_material(piece) {
+function make_sided_material(piece) { // https://stackoverflow.com/questions/67989801/coloring-faces-of-a-three-js-boxgeometry
     const material = new THREE.MeshBasicMaterial({
         vertexColors: true
     });
@@ -12,11 +12,8 @@ function make_sided_material(piece) {
     const positionAttribute = piece.getAttribute('position');
 
     for (let i = 0; i < positionAttribute.count; i += 3) {
-        color.setHex(face_colors[i / 3], 'srgb-linear');
-
-        colors.push(color.r, color.g, color.b);
-        colors.push(color.r, color.g, color.b);
-        colors.push(color.r, color.g, color.b);
+        console.log(i, i / 6, face_colors[i / 6]);
+        color.setHex(face_colors[Math.floor(i / 6)]);
 
         colors.push(color.r, color.g, color.b);
         colors.push(color.r, color.g, color.b);

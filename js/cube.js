@@ -16,8 +16,12 @@ export default class Cube {
     goal_diagonals = [];
     goal_rotate = new THREE.Vector3(0, 0, 0);
 
+    original_spheres = [];
+    original_diagonals = [];
+    original_rotate = new THREE.Vector3(0, 0, 0);
+
     constructor(width, position) {
-        this.cube = new THREE.BoxGeometry(width, width, width);
+        this.cube = new THREE.BoxGeometry(width, width, width).toNonIndexed();
         this.cubeMesh = new THREE.Mesh(this.cube, make_sided_material(this.cube));
         this.cubeMesh.position.copy(position);
 
@@ -25,7 +29,7 @@ export default class Cube {
         this.lines = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff }));
 
         for (let i = 0; i < 8; i++) {
-            const sphere = new THREE.Mesh(new THREE.SphereGeometry(1), new THREE.MeshBasicMaterial({ color: sphere_colors[i] }));
+            const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.25), new THREE.MeshBasicMaterial({ color: sphere_colors[i] }));
             sphere.position.set(this.cubeMesh.position.x + (i % 2 == 0 ? 1 : -1) * 5,
                 this.cubeMesh.position.y + (i % 4 < 2 ? 1 : -1) * 5,
                 this.cubeMesh.position.z + (i < 4 ? 1 : -1) * 5);
@@ -56,10 +60,16 @@ export default class Cube {
         scene.add(this.cubeMesh);
     }
 
+    save_originals() {
+        this.original_spheres = this.spheres.map(s => s.position.clone());
+        this.original_diagonals = this.diagonals.map(d => get_points(d));
+        this.original_rotate.copy(this.cubeMesh.rotation);
+    }
+
     animate(delta) {
         for (let i = 0; i < this.goal_diagonals.length; i++) {
             let goal = this.goal_diagonals[i];
-            let current = get_points(this.diagonals[i]);
+            let current = this.original_diagonals[i];
 
             let new_points = []
             for (let j = 0; j < current.length; j++) {
@@ -74,13 +84,25 @@ export default class Cube {
 
         for (let i = 0; i < this.goal_spheres.length; i++) {
             // spheres[i].position.copy(goal_spheres[i]);
-            this.spheres[i].position.x = this.spheres[i].position.x + (this.goal_spheres[i].x - this.spheres[i].position.x) * delta;
-            this.spheres[i].position.y = this.spheres[i].position.y + (this.goal_spheres[i].y - this.spheres[i].position.y) * delta;
-            this.spheres[i].position.z = this.spheres[i].position.z + (this.goal_spheres[i].z - this.spheres[i].position.z) * delta;
+            this.spheres[i].position.x = this.original_spheres[i].x + (this.goal_spheres[i].x - this.original_spheres[i].x) * delta;
+            this.spheres[i].position.y = this.original_spheres[i].y + (this.goal_spheres[i].y - this.original_spheres[i].y) * delta;
+            this.spheres[i].position.z = this.original_spheres[i].z + (this.goal_spheres[i].z - this.original_spheres[i].z) * delta;
         }
 
-        this.cubeMesh.rotation.x = this.cubeMesh.rotation.x + (this.goal_rotate.x - this.cubeMesh.rotation.x) * delta;
-        this.cubeMesh.rotation.y = this.cubeMesh.rotation.y + (this.goal_rotate.y - this.cubeMesh.rotation.y) * delta;
-        this.cubeMesh.rotation.z = this.cubeMesh.rotation.z + (this.goal_rotate.z - this.cubeMesh.rotation.z) * delta;
+        this.cubeMesh.rotation.x = this.original_rotate.x + (this.goal_rotate.x - this.original_rotate.x) * delta;
+        this.cubeMesh.rotation.y = this.original_rotate.y + (this.goal_rotate.y - this.original_rotate.y) * delta;
+        this.cubeMesh.rotation.z = this.original_rotate.z + (this.goal_rotate.z - this.original_rotate.z) * delta;
+    }
+
+    hide_cube() {
+        this.cubeMesh.visible = false;
+    }
+
+    show_cube() {
+        this.cubeMesh.visible = true;
+    }
+
+    toggle_cube() {
+        this.cubeMesh.visible = !this.cubeMesh.visible;
     }
 };
