@@ -5,7 +5,7 @@
     position: absolute;
     left: 0%;
 
-    z-index: 9;
+    z-index: -1;
 }
 
 #sigmacontainer {
@@ -16,7 +16,7 @@
     position: absolute;
     padding: 10px;
 
-    z-index: 9;
+    z-index: -1;
 }
 
 /* 
@@ -57,5 +57,27 @@ body {
     top: 95%;
     left: 98%;
     position: absolute;
-    z-index: 10;
+    z-index: 1;
+}
+
+/* .shepherd-footer {
+    align-items: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 .75rem .75rem;
+
+    .shepherd-button:last-child {
+        margin-right: 0;
+    }
+
+    .shepherd-progress {
+        font-size: .8rem;
+    }
+} */
+
+.bg_white {
+    background-color: white;
+    border: 5px solid black;
 }

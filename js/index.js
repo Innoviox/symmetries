@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Cube from './cube.js';
 import { anim_loop } from './animate.js';
 import { add_listeners } from './dom.js';
+import { make_tour } from './tour.js';
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -33,3 +34,5 @@ function animate() {
 }
 
 animate();
+
+make_tour().start() 

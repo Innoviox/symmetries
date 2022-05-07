@@ -4,120 +4,124 @@
 <head>
   <meta charset="utf-8">
   <title>Exploring Symmetric Groups</title>
+
+  <link rel="stylesheet" href="css/shepherd.css" />
+
   <link rel="stylesheet" type="text/css" href="css/main.css" />
   <link rel="stylesheet" type="text/css" href="css/w3-slider.css" />
 </head>
 
 <body>
-  <div id="container"></div>
-  <div id="sigmacontainer">
-    <div id="sigmas">
-      <table id="sigmatable">
-        <tr>
-          <th>σ</th>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1-2-3-4">(<span class="yellow">1</span>)(<span class="green">2</span>)(<span
-                class="blue">3</span>)(<span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1-2-34">(<span class="yellow">1</span>)(<span class="green">2</span>)(<span
-                class="blue">3</span><span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1-23-4">(<span class="yellow">1</span>)(<span class="green">2</span><span
-                class="blue">3</span>)(<span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1-234">(<span class="yellow">1</span>)(<span class="green">2</span><span
-                class="blue">3</span><span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1-243">(<span class="yellow">1</span>)(<span class="green">2</span><span
-                class="red">4</span><span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1-24-3">(<span class="yellow">1</span>)(<span class="green">2</span><span
-                class="red">4</span>)(<span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#12-3-4">(<span class="yellow">1</span><span class="green">2</span>)(<span
-                class="blue">3</span>)(<span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#12-34">(<span class="yellow">1</span><span class="green">2</span>)(<span
-                class="blue">3</span><span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#123-4">(<span class="yellow">1</span><span class="green">2</span><span
-                class="blue">3</span>)(<span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1234">(<span class="yellow">1</span><span class="green">2</span><span
-                class="blue">3</span><span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1243">(<span class="yellow">1</span><span class="green">2</span><span
-                class="red">4</span><span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#124-3">(<span class="yellow">1</span><span class="green">2</span><span
-                class="red">4</span>)(<span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#132-4">(<span class="yellow">1</span><span class="blue">3</span><span
-                class="green">2</span>)(<span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1342">(<span class="yellow">1</span><span class="blue">3</span><span
-                class="red">4</span><span class="green">2</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#13-2-4">(<span class="yellow">1</span><span class="blue">3</span>)(<span
-                class="green">2</span>)(<span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#134-2">(<span class="yellow">1</span><span class="blue">3</span><span
-                class="red">4</span>)(<span class="green">2</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#13-24">(<span class="yellow">1</span><span class="blue">3</span>)(<span
-                class="green">2</span><span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1324">(<span class="yellow">1</span><span class="blue">3</span><span
-                class="green">2</span><span class="red">4</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1432">(<span class="yellow">1</span><span class="red">4</span><span
-                class="blue">3</span><span class="green">2</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#142-3">(<span class="yellow">1</span><span class="red">4</span><span
-                class="green">2</span>)(<span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#143-2">(<span class="yellow">1</span><span class="red">4</span><span
-                class="blue">3</span>)(<span class="green">2</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#14-2-3">(<span class="yellow">1</span><span class="red">4</span>)(<span
-                class="green">2</span>)(<span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#1423">(<span class="yellow">1</span><span class="red">4</span><span
-                class="green">2</span><span class="blue">3</span>)</button></td>
-        </tr>
-        <tr>
-          <td><button class="sigma" id="#14-23">(<span class="yellow">1</span><span class="red">4</span>)(<span
-                class="green">2</span><span class="blue">3</span>)</button></td>
-        </tr>
-      </table>
-    </div>
+  <div id="bigcontainer">
+    <div id="container"></div>
+    <div id="sigmacontainer">
+      <div id="sigmas">
+        <table id="sigmatable">
+          <tr>
+            <th>σ</th>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1-2-3-4">(<span class="yellow">1</span>)(<span class="green">2</span>)(<span
+                  class="blue">3</span>)(<span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1-2-34">(<span class="yellow">1</span>)(<span class="green">2</span>)(<span
+                  class="blue">3</span><span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1-23-4">(<span class="yellow">1</span>)(<span class="green">2</span><span
+                  class="blue">3</span>)(<span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1-234">(<span class="yellow">1</span>)(<span class="green">2</span><span
+                  class="blue">3</span><span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1-243">(<span class="yellow">1</span>)(<span class="green">2</span><span
+                  class="red">4</span><span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1-24-3">(<span class="yellow">1</span>)(<span class="green">2</span><span
+                  class="red">4</span>)(<span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#12-3-4">(<span class="yellow">1</span><span class="green">2</span>)(<span
+                  class="blue">3</span>)(<span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#12-34">(<span class="yellow">1</span><span class="green">2</span>)(<span
+                  class="blue">3</span><span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#123-4">(<span class="yellow">1</span><span class="green">2</span><span
+                  class="blue">3</span>)(<span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1234">(<span class="yellow">1</span><span class="green">2</span><span
+                  class="blue">3</span><span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1243">(<span class="yellow">1</span><span class="green">2</span><span
+                  class="red">4</span><span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#124-3">(<span class="yellow">1</span><span class="green">2</span><span
+                  class="red">4</span>)(<span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#132-4">(<span class="yellow">1</span><span class="blue">3</span><span
+                  class="green">2</span>)(<span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1342">(<span class="yellow">1</span><span class="blue">3</span><span
+                  class="red">4</span><span class="green">2</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#13-2-4">(<span class="yellow">1</span><span class="blue">3</span>)(<span
+                  class="green">2</span>)(<span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#134-2">(<span class="yellow">1</span><span class="blue">3</span><span
+                  class="red">4</span>)(<span class="green">2</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#13-24">(<span class="yellow">1</span><span class="blue">3</span>)(<span
+                  class="green">2</span><span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1324">(<span class="yellow">1</span><span class="blue">3</span><span
+                  class="green">2</span><span class="red">4</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1432">(<span class="yellow">1</span><span class="red">4</span><span
+                  class="blue">3</span><span class="green">2</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#142-3">(<span class="yellow">1</span><span class="red">4</span><span
+                  class="green">2</span>)(<span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#143-2">(<span class="yellow">1</span><span class="red">4</span><span
+                  class="blue">3</span>)(<span class="green">2</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#14-2-3">(<span class="yellow">1</span><span class="red">4</span>)(<span
+                  class="green">2</span>)(<span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#1423">(<span class="yellow">1</span><span class="red">4</span><span
+                  class="green">2</span><span class="blue">3</span>)</button></td>
+          </tr>
+          <tr>
+            <td><button class="sigma" id="#14-23">(<span class="yellow">1</span><span class="red">4</span>)(<span
+                  class="green">2</span><span class="blue">3</span>)</button></td>
+          </tr>
+        </table>
+      </div>
 
 
-    <div id="helperdiv">
-      <!-- <button id="flip1" class="helper-flip">Flip 1</button>
+      <div id="helperdiv">
+        <!-- <button id="flip1" class="helper-flip">Flip 1</button>
       <button id="flip2" class="helper-flip">Flip 2</button>
       <button id="flip3" class="helper-flip">Flip 3</button>
       <button id="flip4" class="helper-flip">Flip 4</button>
@@ -125,19 +129,20 @@
       <button class="helper-rot" id="rot-x">rotate x</button>
       <button class="helper-rot" id="rot-y">rotate y</button>
       <button class="helper-rot" id="rot-z">rotate z</button> -->
-      <div id="switch">
-        <span class="toppad">Cube Off</span>
-        <label class="switch">
-          <input checked type="checkbox" id="switched">
-          <span class="slider round"></span>
-        </label>
-        <span class="toppad">Cube On</span>
+        <div id="switch">
+          <span class="toppad">Cube Off</span>
+          <label class="switch">
+            <input checked type="checkbox" id="switched">
+            <span class="slider round"></span>
+          </label>
+          <span class="toppad">Cube On</span>
+        </div>
       </div>
     </div>
   </div>
 
-
   <button id="credits">?</button>
+  <script src="src/public/dist/shepherd.min.js"></script>
   <script src="src/public/dist/bundle.js"></script>
 </body>
 
