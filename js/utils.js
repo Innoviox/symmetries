@@ -5,7 +5,6 @@ let sphere_colors = [0xc505ff, 0xff0000, 0x00ff00, 0x0000ff, 0x0000ff, 0x00ff00,
 let face_colors = [0xff0000, 0x00ff00, 0x0000ff, 0xc505ff, 0x000000, 0xffffff];
 
 function toggle_enabled(class_name) {
-    console.log("toggling");
     let elements = document.getElementsByClassName(class_name);
     for (let i = 0; i < elements.length; i++) {
         elements[i].disabled = !elements[i].disabled;

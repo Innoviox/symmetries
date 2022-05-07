@@ -14,3 +14,6 @@
 - add shepherd
 - add rotations table somewhere
 - add modal toggle
+- hide/show fixed parts of sigma
+- add progress to tour
+- 
