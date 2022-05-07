@@ -8,34 +8,31 @@ function make_tour() {
                 enabled: true
             },
             classes: 'shadow-md bg-white',
-            scrollTo: true
+            scrollTo: true,
+            // when: {
+            //     show() {
+            //         const currentStepElement = tour.currentStep.el;
+            //         const footer = currentStepElement.querySelector('.shepherd-footer');
+            //         const progress = document.createElement('span');
+            //         progress.className = 'shepherd-progress';
+            //         progress.innerText = `${tour.steps.indexOf(tour.currentStep) + 1} of ${tour.steps.length}`;
+            //         footer.insertBefore(progress, tour.querySelector('.shepherd-button:last-child'));
+            //     }
+            // }
         }
     });
 
     tour.addStep({
-        id: 'example-step',
-        text: 'This step is attached to the bottom of the <code>.example-css-selector</code> element.',
-        // attachTo: {
-        //     element: 'html',
-        //     on: 'bottom'
-        // },
-        // classes: 'example-step-extra-class',
-        buttons: [
-            {
-                text: 'Next',
-                action: tour.next
-            }
-        ],
-        // when: {
-        //     show() {
-        //         const currentStepElement = tour.currentStep.el;
-        //         const footer = currentStepElement.querySelector('.shepherd-footer');
-        //         const progress = document.createElement('span');
-        //         progress.className = 'shepherd-progress';
-        //         progress.innerText = `${tour.steps.indexOf(tour.currentStep) + 1} of ${tour.steps.length}`;
-        //         footer.insertBefore(progress, tour.querySelector('.shepherd-button:last-child'));
-        //     }
-        // }
+        id: 'step1',
+        text: 'Welcome to Symmetries!',
+        buttons: [{ text: 'Next', action: tour.next }],
+    });
+
+    tour.addStep({
+        id: 'step2',
+        text: 'Here you can see the elements of the symmetric group S4.',
+        attachTo: { element: '#sigmatable', on: 'left' },
+        buttons: [{ text: 'Next', action: tour.next }],
     });
 
     return tour;
