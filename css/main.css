@@ -4,6 +4,8 @@
     overflow: hidden;
     position: absolute;
     left: 0%;
+
+    z-index: 9;
 }
 
 #sigmacontainer {
@@ -13,6 +15,8 @@
     left: 80%;
     position: absolute;
     padding: 10px;
+
+    z-index: 9;
 }
 
 /* 
@@ -47,4 +51,11 @@ body {
 
 .green {
     color: green;
+}
+
+#credits {
+    top: 95%;
+    left: 98%;
+    position: absolute;
+    z-index: 10;
 }
