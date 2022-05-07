@@ -36,5 +36,5 @@ function animate() {
 
 animate();
 
-// toggle_enabled('sigma'); // don't use buttons during the tour
+toggle_enabled('sigma'); // don't use buttons during the tour
 make_tour().start() 
