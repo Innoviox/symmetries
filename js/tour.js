@@ -1,7 +1,7 @@
 import Shepherd from 'shepherd.js';
 import { toggle_enabled } from './utils.js';
 
-function make_tour() {
+function make_global_tour() {
     const tour = new Shepherd.Tour({
         useModalOverlay: true,
         defaultStepOptions: {
@@ -76,4 +76,28 @@ function make_tour() {
     return tour;
 }
 
-export { make_tour };
+function credits() {
+    const tour = new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+            cancelIcon: {
+                enabled: true
+            },
+            classes: 'shadow-md bg-white',
+            scrollTo: true,
+        },
+    });
+
+    tour.addStep({
+        id: 'credits-step1',
+        text: '<div class="centered-outer"><div class="centered-inner"><h1 class="centered-inner">Symmetries</h1><p class="centered-inner">by Simon Chervenak</p><p class="centered-inner">Made with THREE.js, shepherd.js, and lodash.</p><p class="centered-inner">Source code available on <a href="https://github.com/innoviox/symmetries">GitHub</a>.</p></div></div>',
+    });
+
+    tour.start();
+}
+
+function rotation_table() {
+
+}
+
+export { make_global_tour, credits, rotation_table };

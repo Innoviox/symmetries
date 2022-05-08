@@ -3,7 +3,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Cube from './cube.js';
 import { anim_loop } from './animate.js';
 import { add_listeners } from './dom.js';
-import { make_tour } from './tour.js';
+import { make_global_tour } from './tour.js';
 import { toggle_enabled } from './utils.js';
 
 const renderer = new THREE.WebGLRenderer();
@@ -37,4 +37,4 @@ function animate() {
 animate();
 
 toggle_enabled('sigma'); // don't use buttons during the tour
-make_tour().start() 
+make_global_tour().start() 

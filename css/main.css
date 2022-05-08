@@ -37,6 +37,11 @@ body {
     top: 7px;
 }
 
+#slider {
+    position: relative;
+    top: 3px;
+}
+
 .red {
     color: red;
 }
@@ -91,4 +96,18 @@ body {
 .bg_white {
     background-color: white;
     border: 5px solid black;
+}
+
+#slidecontainer {
+    display: inline-block;
+}
+
+.centered-inner {
+    /* width: 80%; */
+    margin: 0 auto;
+}
+
+.centered-outer {
+    width: 100%;
+    text-align: center;
 }

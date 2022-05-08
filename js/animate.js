@@ -1,13 +1,20 @@
 import { data } from './data.js';
 import { toggle_enabled } from './utils.js';
 
-let anim_length = 101;
+let anim_length = 100;
 let time = anim_length + 1; // not hacky dw
 
 var diagonals_to_spheres = { 0: [7, 0], 1: [2, 5], 2: [3, 4], 3: [6, 1] };
 const half = Math.PI / 2;
 
 var inversions_enabled = false;
+
+function set_animate_speed(speed) {
+    if (time == anim_length + 1) {
+        time = speed + 1;
+    }
+    anim_length = speed;
+}
 
 let animateSigma = cube => b => {
     let id = b.target.id;
@@ -51,14 +58,21 @@ let animateSigma = cube => b => {
     time = 0; // start animation
 
     toggle_enabled('sigma');
-    cube.hide_cube();
+    if (anim_length != 0) {
+        cube.hide_cube();
+    }
 };
 
 function anim_loop(cube) {
-    if (time < anim_length) {
+    if (anim_length == 0 && time == 0) {
+        cube.animate(1);
+    } else if (time < anim_length) {
         time += 1;
         cube.animate(time / anim_length);
-    } else if (time == anim_length) {
+        return;
+    }
+
+    if (time == anim_length) {
         // finished animation
         toggle_enabled('sigma');
         cube.show_cube();
@@ -66,4 +80,4 @@ function anim_loop(cube) {
     }
 }
 
-export { animateSigma, anim_loop };
+export { animateSigma, anim_loop, set_animate_speed };
