@@ -125,8 +125,8 @@ body {
     background-color: #a4a69c;
 }
 
-#rotation-table,
-#rotation-table td {
+.rotation-table,
+.rotation-table td {
     border: 1px solid black;
     border-collapse: collapse;
 }
