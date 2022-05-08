@@ -1,5 +1,5 @@
 import { animateSigma, set_animate_speed, reset_cube } from './animate.js';
-import { credits } from './tour.js';
+import { credits, rotation_table } from './tour.js';
 
 function add_listeners(cube, controls) {
     document.getElementById("switched").addEventListener('click', function (b) {
@@ -21,6 +21,7 @@ function add_listeners(cube, controls) {
     });
 
     document.getElementById("credits").addEventListener('click', credits);
+    document.getElementById("rot-table").addEventListener('click', rotation_table);
 
     document.getElementById("reset-cube").addEventListener('click', () => reset_cube(cube, controls));
 }

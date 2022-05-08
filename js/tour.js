@@ -1,5 +1,6 @@
 import Shepherd from 'shepherd.js';
 import { toggle_enabled } from './utils.js';
+import { rotation_table_text } from './data.js';
 
 function make_global_tour() {
     const tour = new Shepherd.Tour({
@@ -97,7 +98,23 @@ function credits() {
 }
 
 function rotation_table() {
+    const tour = new Shepherd.Tour({
+        useModalOverlay: true,
+        defaultStepOptions: {
+            cancelIcon: {
+                enabled: true
+            },
+            classes: 'shadow-md bg-white',
+            scrollTo: true,
+        },
+    });
 
+    tour.addStep({
+        id: 'table-step1',
+        text: rotation_table_text
+    });
+
+    tour.start();
 }
 
 export { make_global_tour, credits, rotation_table };
