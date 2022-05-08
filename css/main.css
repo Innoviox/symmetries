@@ -60,7 +60,7 @@ body {
 
 #rot-table {
     top: 95%;
-    left: 95%;
+    left: 96%;
     position: absolute;
     z-index: 1;
     width: 30px;
@@ -73,6 +73,15 @@ body {
     position: absolute;
     z-index: 1;
     width: 30px;
+    height: 30px;
+}
+
+#reset-cube {
+    top: 95%;
+    left: 91%;
+    position: absolute;
+    z-index: 1;
+    /* width: 30px; */
     height: 30px;
 }
 

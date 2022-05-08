@@ -63,6 +63,28 @@ let animateSigma = cube => b => {
     }
 };
 
+function reset_cube(cube, controls) {
+    for (let i = 0; i < 8; i++) {
+        cube.goal_spheres[i].set((i % 2 == 0 ? 1 : -1) * 5,
+            (i % 4 < 2 ? 1 : -1) * 5,
+            (i < 4 ? 1 : -1) * 5);
+    }
+
+    cube.goal_diagonals[0] = [cube.goal_spheres[7].clone(), cube.goal_spheres[0].clone()];
+    cube.goal_diagonals[1] = [cube.goal_spheres[2].clone(), cube.goal_spheres[5].clone()];
+    cube.goal_diagonals[2] = [cube.goal_spheres[3].clone(), cube.goal_spheres[4].clone()];
+    cube.goal_diagonals[3] = [cube.goal_spheres[6].clone(), cube.goal_spheres[1].clone()];
+
+    cube.goal_rotate.x = 0;
+    cube.goal_rotate.y = 0;
+    cube.goal_rotate.z = 0;
+
+    cube.save_originals();
+    cube.animate(1);
+
+    controls.reset();
+}
+
 function anim_loop(cube) {
     if (anim_length == 0 && time == 0) {
         cube.animate(1);
@@ -80,4 +102,4 @@ function anim_loop(cube) {
     }
 }
 
-export { animateSigma, anim_loop, set_animate_speed };
+export { animateSigma, anim_loop, set_animate_speed, reset_cube };

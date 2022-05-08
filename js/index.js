@@ -18,11 +18,12 @@ const controls = new OrbitControls(camera, renderer.domElement);
 
 camera.position.set(0, 20, 100);
 controls.update();
+controls.saveState();
 
 let cube = new Cube(10, new THREE.Vector3(0, 0, 0));
 cube.add_to_scene(scene);
 
-add_listeners(cube);
+add_listeners(cube, controls);
 
 function animate() {
     requestAnimationFrame(animate);

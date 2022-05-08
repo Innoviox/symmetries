@@ -1,7 +1,7 @@
-import { animateSigma, set_animate_speed } from './animate.js';
+import { animateSigma, set_animate_speed, reset_cube } from './animate.js';
 import { credits } from './tour.js';
 
-function add_listeners(cube) {
+function add_listeners(cube, controls) {
     document.getElementById("switched").addEventListener('click', function (b) {
         if (b.target.checked) {
             cube.on = true;
@@ -21,6 +21,8 @@ function add_listeners(cube) {
     });
 
     document.getElementById("credits").addEventListener('click', credits);
+
+    document.getElementById("reset-cube").addEventListener('click', () => reset_cube(cube, controls));
 }
 
 export { add_listeners };
