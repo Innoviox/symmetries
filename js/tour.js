@@ -31,7 +31,7 @@ function make_global_tour() {
 
     new Shepherd.Step(tour, {
         id: 'step2',
-        text: 'Here you can see the elements of the symmetric group S4. Click on one (after the tour) to apply it.',
+        text: 'Here you can see the elements of the symmetric group S4, which has 4! = 24 elements. Click on one (after the tour) to apply it.',
         attachTo: { element: '#sigmatable', on: 'left' },
         buttons: [{ text: 'Next', action: tour.next }],
     }),
